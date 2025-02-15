@@ -17,147 +17,44 @@
   </head>
   <body>
     <?php include 'partials/navbar.php';?>
+    
     <?php include 'partials/dbconnect.php';?>
-    
-    
+    <?php include 'partials/carousel.php';?>
 
-    <div id="carouselExampleIndicators" class="carousel slide"> <?php //carousel effect ?>
-      <div class="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
-        ></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="ffdd.jpg" class="d-block w-100" alt=" first" width="400" height="400" />
-        </div>
-        <div class="carousel-item">
-          <img src="th.jpg" class="d-block w-100" alt="second"  width="400" height="400"/>
-        </div>
-        <div class="carousel-item">
-          <img src="ffdddd.webp" class="d-block w-100" alt="third" width="400" height="400" />
-        </div>
-      </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
     <div class="container my-3">
       <h2 align="center">IDiscuss:- Categories</h2>
       <div class="row">
-        <div class="col-md-4 my-2">
-          <div class="card" style="width: 18rem">
-            <img src="eeee.jpg" class="card-img-top" alt="anything" />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 my-2">
-          <div class="card" style="width: 18rem">
-            <img src="eeee.jpg" class="card-img-top" alt="anything" />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 my-2">
-          <div class="card" style="width: 18rem">
-            <img src="eeee.jpg" class="card-img-top" alt="anything" />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 my-2">
+      <?php
+      $sql = "SELECT * FROM `category`";
+      $result = mysqli_query($conn, $sql);
+      
+       if (mysqli_num_rows($result) > 0) {
+        
+       // output data of each row
+       while($row = mysqli_fetch_assoc($result)) {
+        $id=$row["category_id"];
+        $title=$row["category_name"];
+        $desc=substr($row["category_desc"],0,50);
+        echo ' <div class="col-md-4 my-2">
             <div class="card" style="width: 18rem">
-              <img src="eeee.jpg" class="card-img-top" alt="anything" />
+              <img src="picture/eeee2.jpg" class="card-img-top" alt="anything" />
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <h5 class="card-title">'.$title.'</h5>
                 <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
+                  '.$desc.'........'.'
                 </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a href="threadlist.php?id='.$id.'" class="btn btn-primary">View Threads</a>
               </div>
             </div>
-          </div>
-          <div class="col-md-4 my-2">
-            <div class="card" style="width: 18rem">
-              <img src="eeee.jpg" class="card-img-top" alt="anything" />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 my-2">
-            <div class="card" style="width: 18rem">
-              <img src="eeee.jpg" class="card-img-top" alt="anything" />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+          </div>';
+
+       }
+       }
+       
+       mysqli_close($conn);
+       ?>
+       </div>
+      
     </div>
     <?php include 'partials/footer.php';?>
     <script
